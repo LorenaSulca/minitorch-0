@@ -5,44 +5,37 @@ import math
 
 
 def mul(x, y):
-    ":math:`f(x, y) = x * y`"
-    # TODO: Implement for Task 0.1.
+    return x * y
     raise NotImplementedError('Need to implement for Task 0.1')
 
 
 def id(x):
-    ":math:`f(x) = x`"
-    # TODO: Implement for Task 0.1.
+    return x
     raise NotImplementedError('Need to implement for Task 0.1')
 
 
 def add(x, y):
-    ":math:`f(x, y) = x + y`"
-    # TODO: Implement for Task 0.1.
+    return x + y
     raise NotImplementedError('Need to implement for Task 0.1')
 
 
 def neg(x):
-    ":math:`f(x) = -x`"
-    # TODO: Implement for Task 0.1.
+    return - x
     raise NotImplementedError('Need to implement for Task 0.1')
 
 
 def lt(x, y):
-    ":math:`f(x) =` 1.0 if x is less than y else 0.0"
-    # TODO: Implement for Task 0.1.
+    return 1 if x < y else 0
     raise NotImplementedError('Need to implement for Task 0.1')
 
 
 def eq(x, y):
-    ":math:`f(x) =` 1.0 if x is equal to y else 0.0"
-    # TODO: Implement for Task 0.1.
+    return 1 if x == y else 0
     raise NotImplementedError('Need to implement for Task 0.1')
 
 
 def max(x, y):
-    ":math:`f(x) =` x if x is greater than y else y"
-    # TODO: Implement for Task 0.1.
+    return x if x > y else y
     raise NotImplementedError('Need to implement for Task 0.1')
 
 
@@ -59,7 +52,12 @@ def sigmoid(x):
     for stability.
 
     """
-    # TODO: Implement for Task 0.1.
+    if x >= 0:
+        z = exp(-x)
+        return 1 / (1 + z)
+    else:
+        z = exp(x)
+        return z / (1 + z)
     raise NotImplementedError('Need to implement for Task 0.1')
 
 
@@ -69,13 +67,13 @@ def relu(x):
 
     (See `<https://en.wikipedia.org/wiki/Rectifier_(neural_networks)>`_ .)
     """
-    # TODO: Implement for Task 0.1.
+    return x if x > 0 else 0
     raise NotImplementedError('Need to implement for Task 0.1')
 
 
 def relu_back(x, y):
     ":math:`f(x) =` y if x is greater than 0 else 0"
-    # TODO: Implement for Task 0.1.
+    return y if x > 0 else 0
     raise NotImplementedError('Need to implement for Task 0.1')
 
 
@@ -124,7 +122,14 @@ def map(fn):
     Returns:
         function : a function that takes a list and applies `fn` to each element
     """
-    # TODO: Implement for Task 0.3.
+
+    def func(list):
+        newList = []
+        for x in list:
+            newList.append(fn(x))
+        return newList
+
+    return func
     raise NotImplementedError('Need to implement for Task 0.3')
 
 
@@ -149,7 +154,14 @@ def zipWith(fn):
         applying fn(x, y) one each pair of elements.
 
     """
-    # TODO: Implement for Task 0.3.
+    def func(list1, list2):
+        newList = []
+        for cont, val in enumerate(list1):
+            newList.append(fn(list1[cont], list2[cont]))
+        return newList
+
+    return func
+
     raise NotImplementedError('Need to implement for Task 0.3')
 
 
@@ -175,7 +187,14 @@ def reduce(fn, start):
         fn(x_1, x_0)))`
 
     """
-    # TODO: Implement for Task 0.3.
+    def func(list):
+        newList = list.copy()
+        if len(newList) == 0:
+            return start
+        x = newList.pop()
+        return fn(x, func(newList))
+
+    return func
     raise NotImplementedError('Need to implement for Task 0.3')
 
 
@@ -183,7 +202,8 @@ def sum(ls):
     """
     Sum up a list using :func:`reduce` and :func:`add`.
     """
-    # TODO: Implement for Task 0.3.
+    func = reduce(add, 0)
+    return func(ls)
     raise NotImplementedError('Need to implement for Task 0.3')
 
 
@@ -191,5 +211,6 @@ def prod(ls):
     """
     Product of a list using :func:`reduce` and :func:`mul`.
     """
-    # TODO: Implement for Task 0.3.
+    func = reduce(mul, 1)
+    return func(ls)
     raise NotImplementedError('Need to implement for Task 0.3')

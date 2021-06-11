@@ -27,35 +27,32 @@ def test_relu(a):
 
 
 @pytest.mark.task0_2
-def test_symmetric():
+@given(small_floats, small_floats)
+def test_symmetric(a, b):
     """
     Write a test that ensures that :func:`minitorch.operators.mul` is symmetric, i.e.
     gives the same value regardless of the order of its input.
     """
-    None
-    # TODO: Implement for Task 0.2.
-    raise NotImplementedError('Need to implement for Task 0.2')
+    assert operators.mul(a, b) == operators.mul(b, a)
 
 
 @pytest.mark.task0_2
-def test_distribute():
-    r"""
+@given(small_floats, small_floats, small_floats)
+def test_distribute(x, y, z):
+    """
     Write a test that ensures that your operators distribute, i.e.
     :math:`z \times (x + y) = z \times x + z \times y`
     """
-    None
-    # TODO: Implement for Task 0.2.
-    raise NotImplementedError('Need to implement for Task 0.2')
+    assert_close(operators.mul(z, x + y), operators.mul(z, x) + operators.mul(z, y))
 
 
 @pytest.mark.task0_2
-def test_other():
+@given(small_floats, small_floats)
+def test_other(a, b):
     """
     Write a test that ensures some other property holds for your functions.
     """
-    None
-    # TODO: Implement for Task 0.2.
-    raise NotImplementedError('Need to implement for Task 0.2')
+    assert operators.lt(a, b) == 0 or 1
 
 
 # HIGHER ORDER
@@ -77,8 +74,12 @@ def test_property(ls1, ls2):
     Write a test that ensures that the sum of `ls1` plus the sum of `ls2`
     is the same as the sum of each element of `ls1` plus each element of `ls2`.
     """
-    # TODO: Implement for Task 0.3.
-    raise NotImplementedError('Need to implement for Task 0.3')
+    suma = 0
+    for x in ls1:
+        suma = suma + x
+    for x in ls2:
+        suma = suma + x
+    assert_close(operators.sum(ls1) + operators.sum(ls2), suma)
 
 
 @pytest.mark.task0_3
